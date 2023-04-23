@@ -122,16 +122,17 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Directory where you want to collect all your static files
-STATIC_ROOT = BASE_DIR/ 'staticfiles'
 
 # Additional directories that contain static files
-STATICFILES_DIRS = [
-    BASE_DIR/  'static'
-    # add other directories here if needed
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR/  'static'
+#     # add other directories here if needed
+# ]
+
+# Directory where you want to collect all your static files
+STATIC_ROOT = BASE_DIR/ 'static'
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 IMAGE_ROOT = BASE_DIR / 'uploads/images' 
 FILE_ROOT = BASE_DIR / 'uploads/files'
 # Default primary key field type
