@@ -131,7 +131,7 @@ USE_TZ = True
 # ]
 
 # Directory where you want to collect all your static files
-STATIC_ROOT = BASE_DIR/ 'static'
+STATIC_ROOT = '/var/www/html/static'
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 IMAGE_ROOT = BASE_DIR / 'uploads/images' 
