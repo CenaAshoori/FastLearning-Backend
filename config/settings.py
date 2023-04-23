@@ -22,13 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3ags_hw1v6l)#3lf_tgwhg66$otbap2z#d@$_paj@6z3=9hl(2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
-    # '51.222.106.104'
+#    'http://51.222.106.104',
     '*'
 ]
-
+CSRF_TRUSTED_ORIGINS = ['http://51.222.106.104:8000',]
 # Application definition
 
 INSTALLED_APPS = [
@@ -134,9 +134,18 @@ USE_TZ = True
 STATIC_ROOT = '/var/www/html/static'
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-IMAGE_ROOT = BASE_DIR / 'uploads/images' 
+IMAGE_ROOT = BASE_DIR / 'uploads/images'
 FILE_ROOT = BASE_DIR / 'uploads/files'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#help
+"""
+gunicorn config.wsgi:application --bind 0.0.0.0:8000
+gunicorn config.wsgi:application --bind 0.0.0.0:8000 --daemon --workers 4
+sudo lsof -iTCP -sTCP:LISTEN | grep gunicorn
+
+"""
