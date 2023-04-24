@@ -1,7 +1,13 @@
 from rest_framework import serializers
-from .models import CardModel,CategoryModel
+from .models import CardModel,CategoryModel,CardImage
+
+class CardImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CardImage
+        fields = ('id', 'image')
 
 class CardSerializer(serializers.ModelSerializer):
+    images = CardImageSerializer(many=True, read_only=True)
     class Meta:
         model = CardModel
         fields = '__all__'

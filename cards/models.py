@@ -21,13 +21,20 @@ class CategoryModel(models.Model):
     def __str__(self):
         return self.title
 
+
+class CardImage(models.Model):
+    image = models.FileField(upload_to=get_image_path)
+
+    def __str__(self):
+        return self.image.name
+
 class CardModel(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=300)
-    image = models.FileField(upload_to=get_image_path)
-    file = models.FileField(upload_to=get_file_path)
     category = models.ForeignKey(CategoryModel, on_delete=models.DO_NOTHING)
+    images = models.ManyToManyField(CardImage)
+    file = models.FileField(upload_to=get_file_path)
+    video_link = models.URLField(blank=True, null=True)
+
     def __str__(self):
         return self.title
-
-
