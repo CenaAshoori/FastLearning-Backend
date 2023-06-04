@@ -58,7 +58,7 @@ class CardModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def clean(self):
-        if self.category_type != CardModel.NEWS and self.file is None:
+        if self.category_type != CardModel.NEWS and (self.file is None or not self.file):
             raise ValidationError('File is required if it is not a news')
         
     def save(self, *args, **kwargs):
