@@ -1,5 +1,3 @@
-from django.contrib import admin
-
 # Register your models here.
 from django.contrib import admin
 from .models import CardModel,CategoryModel,CardImage
@@ -23,9 +21,12 @@ from django.db import models
 
 @admin.register(CardModel)
 class CardModelAdmin(admin.ModelAdmin):
-    formfield_overrides = {
-        models.CharField: {'widget': admin.widgets.AdminRadioSelect},
-    }
+    # formfield_overrides = {
+    #     models.CharField: {'widget': admin.widgets.AdminRadioSelect},
+    # }
+    widgets = {
+            'category_type': admin.widgets.AdminRadioSelect,
+        }
     inlines = [CardImageInline]
     form = MyModelForm
 
