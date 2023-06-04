@@ -1,5 +1,6 @@
 
 import uuid
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
@@ -35,7 +36,7 @@ class CardModel(models.Model):
     description = models.CharField(max_length=300)
     category = models.ForeignKey(CategoryModel, on_delete=models.DO_NOTHING)
     images = models.ManyToManyField(CardImage)
-    file = models.FileField(upload_to=get_file_path)
+    file = models.FileField(upload_to=get_file_path, blank=True, null=True)
     video_link = models.URLField(blank=True, null=True)
 
     NEWS = 'NW'
@@ -44,18 +45,22 @@ class CardModel(models.Model):
     LESSON = 'LE'
     CATEGORY_CHOICES = [
         (NEWS, 'News'),
-        (FOLDER, 'Folders'),
+        # (FOLDER, 'Folders'),
         (BOOK, 'Books'),
-        (LESSON, 'Lessons'),
+        # (LESSON, 'Lessons'),
     ]
     category_type = models.CharField(
         max_length=2,
         choices=CATEGORY_CHOICES,
         default=BOOK,
     )
-    isNews = models.BooleanField(default=False)
+    # isNews = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def clean(self):
+        if self.category_type != CardModel.NEWS and not self.file:
+            raise ValidationError('File is required if it is not a news')
+        
     def save(self, *args, **kwargs):
         # update the timestamp whenever the object is saved
         self.updated_at = timezone.now()
