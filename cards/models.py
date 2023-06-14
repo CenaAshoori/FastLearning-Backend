@@ -32,8 +32,10 @@ class CategoryModel(models.Model):
 class CardImage(models.Model):
     video_link = models.URLField(blank=True, null=True)
     isVideo = models.BooleanField(default=False)
-    image = models.FileField(upload_to=get_image_path)
-
+    image = models.FileField(upload_to=get_image_path,blank=True, null=True)
+    def clean(self):
+        if not self.isVideo and (self.file is None or not self.file):
+            raise ValidationError('Image is required if it is not a news')
     def __str__(self):
         return self.image.name
 
