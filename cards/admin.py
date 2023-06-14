@@ -3,6 +3,8 @@ from django.contrib import admin
 from .models import CardModel,CategoryModel,CardImage
 from django import forms
 
+from django.http import HttpResponseRedirect
+
 # Register your models here.
 # admin.site.register(CardModel)
 admin.site.register(CategoryModel)
@@ -29,4 +31,14 @@ class CardModelAdmin(admin.ModelAdmin):
         }
     inlines = [CardImageInline]
     form = MyModelForm
+
+    def response_change(self, request, obj):
+        # Define the URL to which you want to redirect
+        if obj.isPreview:
+            custom_url = '/cards/preview/'
+
+            # Redirect to the custom URL using HttpResponseRedirect
+            return HttpResponseRedirect(custom_url)
+        return super().response_change(request,obj)
+
 
