@@ -37,7 +37,9 @@ class CardImage(models.Model):
         if not self.isVideo and (self.image is None or not self.image):
             raise ValidationError('Image is required if it is not a news')
     def __str__(self):
-        return self.image.name or self.pk
+        if self.image is None or not self.image:
+            return self.pk
+        return self.image.name
 
 class CardModel(models.Model):
     title = models.CharField(max_length=100)
