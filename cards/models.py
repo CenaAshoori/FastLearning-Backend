@@ -34,10 +34,10 @@ class CardImage(models.Model):
     isVideo = models.BooleanField(default=False)
     image = models.FileField(upload_to=get_image_path,blank=True, null=True)
     def clean(self):
-        if not self.isVideo and (self.file is None or not self.file):
+        if not self.isVideo and (self.image is None or not self.image):
             raise ValidationError('Image is required if it is not a news')
     def __str__(self):
-        return self.image.name
+        return self.image.name or self.pk
 
 class CardModel(models.Model):
     title = models.CharField(max_length=100)
