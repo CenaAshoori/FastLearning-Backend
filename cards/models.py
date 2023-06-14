@@ -6,13 +6,17 @@ from django.utils import timezone
 
 # from accounts.models import User
 def get_file_path(instance, filename):
-    extension = filename.split('.')[-1]
-    new_filename = f'{uuid.uuid4()}.{extension}'
+    wholename = filename.split('.')
+    extension = wholename[-1]
+    name = wholename[0]
+    new_filename = f'{name}_{uuid.uuid4()}.{extension}'
     return 'uploads/files/' + new_filename
     
 def get_image_path(instance, filename):
-    extension = filename.split('.')[-1]
-    new_filename = f'{uuid.uuid4()}.{extension}'
+    wholename = filename.split('.')
+    extension = wholename[-1]
+    name = wholename[0]
+    new_filename = f'{name}_{uuid.uuid4()}.{extension}'
     return 'uploads/images/' + new_filename
 
 class CategoryModel(models.Model):
@@ -26,6 +30,8 @@ class CategoryModel(models.Model):
 
 
 class CardImage(models.Model):
+    video_link = models.URLField(blank=True, null=True)
+    isVideo = models.BooleanField(default=False)
     image = models.FileField(upload_to=get_image_path)
 
     def __str__(self):
@@ -37,7 +43,7 @@ class CardModel(models.Model):
     category = models.ForeignKey(CategoryModel, on_delete=models.DO_NOTHING)
     images = models.ManyToManyField(CardImage)
     file = models.FileField(upload_to=get_file_path, blank=True, null=True)
-    video_link = models.URLField(blank=True, null=True)
+    isPreview = models.BooleanField(default=True)
 
     NEWS = 'NW'
     FOLDER = 'FL'

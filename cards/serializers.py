@@ -4,7 +4,7 @@ from .models import CardModel,CategoryModel,CardImage
 class CardImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = CardImage
-        fields = ('id', 'image')
+        fields = '__all__'
 
 class CardSerializer(serializers.ModelSerializer):
     images = CardImageSerializer(many=True, read_only=True)

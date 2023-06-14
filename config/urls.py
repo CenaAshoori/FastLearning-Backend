@@ -18,12 +18,14 @@ from django.urls import include, path
 from rest_framework import routers
 from cards.views import CardListCreateView, CardRetrieveUpdateDestroyView,\
                         CategoryListCreateView, CategoryModelRetrieveUpdateDestroyView,download_file,download_image
+from cards.views import card_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include("accounts.urls")),
     path('cards/', CardListCreateView.as_view(), name='card-list-create'),
     path('cards/<int:pk>/', CardRetrieveUpdateDestroyView.as_view(), name='card-retrieve-update-destroy'),
+    path('cards/preview/', card_list, name='card_list'),
     path('categories/', CategoryListCreateView.as_view(), name='Categories-list-create'),
     path('categories/<int:pk>/', CategoryModelRetrieveUpdateDestroyView.as_view(), name='Categories-retrieve-update-destroy'),
     path('uploads/files/<str:file_name>/', download_file, name='file'),

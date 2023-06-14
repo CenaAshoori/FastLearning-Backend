@@ -7,10 +7,11 @@ import os
 from django.conf import settings
 from django.http import HttpResponse, Http404
 
+from django.shortcuts import render
 
 class CardListCreateView(ListCreateAPIView):
     permission_classes=[IsAuthenticatedOrReadOnly]
-    queryset = CardModel.objects.all()
+    queryset = CardModel.objects.filter(isPreview=False)
     serializer_class = CardSerializer
 
 class CardRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
@@ -47,3 +48,7 @@ def download_file(request, file_name):
             return response
     else:
         raise Http404
+
+def card_list(request):
+    cards = CardModel.objects.filter(isPreview=True)
+    return render(request, 'card_list.html', {'cards': cards})

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        hr {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            border: 5;
+            border-top: 5px solid rgba(0, 0, 0, 1);
+          }
+    </style>
+
+</head>
+<body>
+    <header>
+        <div style="text-align: center;">
+            <h1>Preview</h1>
+          </div>
+              </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+</body>
+</html>
